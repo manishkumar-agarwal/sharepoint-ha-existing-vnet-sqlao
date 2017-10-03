@@ -55,22 +55,6 @@
         "description": "Name of virtual network to be created"
       }
     },
-    "virtualNetworkAddressRange": {
-      "type": "string",
-      "metadata": {
-        "group": "Infrastructure settings",
-        "description": "The address range of the new VNET in CIDR format"
-      },
-      "defaultValue": "10.0.0.0/16"
-    },
-    "staticSubnet": {
-      "type": "string",
-      "metadata": {
-        "group": "Infrastructure settings",
-        "description": "The address range of the subnet static IPs are allocated from in the new VNET"
-      },
-      "defaultValue": "10.0.0.0/24"
-    },
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
@@ -544,40 +528,13 @@
       }
     },
     {
-      "name": "CreatingVirtualNetwork",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'),'/','nestedtemplates','/','vnet-new.json', parameters('_artifactsLocationSasToken'))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "virtualNetworkName": {
-            "value": "[parameters('virtualNetworkName')]"
-          },
-          "virtualNetworkAddressRange": {
-            "value": "[parameters('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[variables('subnets')]"
-          }
-        }
-      }
-    },
-    {
       "name": "SettingUpLoadBalancers",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/SettingUpSharepointCentralAdminPublicIP",
         "Microsoft.Resources/deployments/SettingUpSharepointWebPublicIP",
-        "Microsoft.Resources/deployments/SettingUpRdp",
-        "Microsoft.Resources/deployments/CreatingVirtualNetwork"
+        "Microsoft.Resources/deployments/SettingUpRdp"
       ],
       "properties": {
         "mode": "Incremental",
@@ -666,7 +623,6 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/CreatingVirtualNetwork",
         "Microsoft.Resources/deployments/SettingUpRdp",
         "Microsoft.Resources/deployments/SettingUpLoadBalancers"
       ],
