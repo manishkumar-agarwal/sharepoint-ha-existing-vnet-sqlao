@@ -52,7 +52,7 @@
       "defaultValue": "spfarmhaVNET",
       "metadata": {
         "group": "Infrastructure settings",
-        "description": "Name of virtual network to be created"
+        "description": "Resource ID of the existing VNET. You can find the Resource ID for the VNET on the Properties blade of the VNET"
       }
     },
     "_artifactsLocation": {
@@ -112,14 +112,6 @@
       },
       "defaultValue": "Standard_DS3"
     },
-    "witnessVMSize": {
-      "type": "string",
-      "metadata": {
-        "group": "SQL Server settings",
-        "description": "The size of the witness VM created"
-      },
-      "defaultValue": "Standard_DS1"
-    },
     "sqlServerServiceAccountUserName": {
       "type": "string",
       "metadata": {
@@ -151,7 +143,7 @@
       },
       "defaultValue": "10.0.1.0/24"
     },
-    "spWebSubnet": {
+    "spWebSubnetName": {
       "type": "string",
       "metadata": {
         "group": "SharePoint Server settings",
@@ -159,7 +151,7 @@
       },
       "defaultValue": "10.0.2.0/24"
     },
-    "spAppSubnet": {
+    "spAppSubnetName": {
       "type": "string",
       "metadata": {
         "group": "SharePoint Server settings",
@@ -327,8 +319,8 @@
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
-    "spWebSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spWebSubnetName)]",
-    "spAppSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spAppSubnetName)]",
+    "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',variables('subnetNames').spWebSubnetName)]",
+    "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',variables('subnetNames').spAppSubnetName)]",
     "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
     "spWebResourceIdnew": "[resourceId(concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
     "sharepointCAfqdn": "[concat(variables('spCADNSPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
@@ -357,27 +349,7 @@
       "spCABEAddressPoolID": "[concat(variables('ids').spCAlbID,'/backendAddressPools/',variables('lbSettings').spCALBBE)]",
       "spCAlbFEConfigID": "[concat(variables('ids').spCAlbID,'/frontendIPConfigurations/',variables('lbSettings').spCALBFE)]",
       "spCANATRuleID": "[concat(variables('ids').spCAlbID,'/inboundNatRules/',variables('spCANAT'))]"
-    },
-    "subnets": [
-      {
-        "name": "[variables('subnetNames').sqlSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('sqlSubnet')]"
-        }
-      },
-      {
-        "name": "[variables('subnetNames').spWebSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('spWebSubnet')]"
-        }
-      },
-      {
-        "name": "[variables('subnetNames').spAppSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('spAppSubnet')]"
-        }
-      }
-    ]
+    }
   },
   "resources": [
     {
