@@ -279,8 +279,8 @@
     },
     "subnetNames": {
       "sqlSubnetName": "sqlSubnet",
-      "spWebSubnetName": "spWebSubnet",
-      "spAppSubnetName": "spAppSubnet"
+      "spWebSubnetName": "WTW-EM20-OP-SPWEB-SUB03",
+      "spAppSubnetName": "WTW-EM20-OP-SPAPP-SUB02"
     },
     "RDPNAT": "RDP",
     "spCANAT": "spCANAT",
