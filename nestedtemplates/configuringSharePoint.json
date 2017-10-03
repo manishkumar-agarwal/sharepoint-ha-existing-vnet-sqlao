@@ -113,7 +113,7 @@
               "password": "privateSettingsRef:sqlServerServiceAccountPassword"
             },
             "databaseName": "[parameters('configDatabaseName')]",
-            "sqlAlwaysOnAvailabilityGroupName": "SQL-AOGL1",
+            "sqlAlwaysOnAvailabilityGroupName": "SQLAG1",
             "primaryReplica": "RSG-EM20-SQLAO2",
             "secondaryReplica": "RSG-EM20-SQLAO1",
             "databaseNames": [
