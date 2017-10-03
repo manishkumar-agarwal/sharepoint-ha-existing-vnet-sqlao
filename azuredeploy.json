@@ -278,7 +278,6 @@
       "spCALBName": "spCALoadBalancer"
     },
     "subnetNames": {
-      "staticSubnetName": "staticSubnet",
       "sqlSubnetName": "sqlSubnet",
       "spWebSubnetName": "spWebSubnet",
       "spAppSubnetName": "spAppSubnet"
@@ -327,7 +326,6 @@
     "adBdcNicName": "[concat(variables('vmSettings').adBDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
     "VnetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-    "staticSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').staticSubnetName)]",
     "sqlSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
     "spWebSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spWebSubnetName)]",
     "spAppSubnetRef": "[concat(variables('VnetID'),'/subnets/',variables('subnetNames').spAppSubnetName)]",
@@ -361,12 +359,6 @@
       "spCANATRuleID": "[concat(variables('ids').spCAlbID,'/inboundNatRules/',variables('spCANAT'))]"
     },
     "subnets": [
-      {
-        "name": "[variables('subnetNames').staticSubnetName]",
-        "properties": {
-          "addressPrefix": "[parameters('staticSubnet')]"
-        }
-      },
       {
         "name": "[variables('subnetNames').sqlSubnetName]",
         "properties": {
