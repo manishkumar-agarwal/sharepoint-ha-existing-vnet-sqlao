@@ -113,15 +113,15 @@
               "password": "privateSettingsRef:sqlServerServiceAccountPassword"
             },
             "databaseName": "[parameters('configDatabaseName')]",
-            "sqlAlwaysOnAvailabilityGroupName": "[parameters('sqlAOAGName')]",
-            "primaryReplica": "[concat(parameters('sqlVMName'),'1')]",
-            "secondaryReplica": "[concat(parameters('sqlVMName'),'0')]",
+            "sqlAlwaysOnAvailabilityGroupName": "SQL-AOGL1",
+            "primaryReplica": "RSG-EM20-SQLAO2",
+            "secondaryReplica": "RSG-EM20-SQLAO1",
             "databaseNames": [
               "[parameters('administrationContentDatabaseName')]",
               "[parameters('configDatabaseName')]"
             ],
             "administrationContentDatabaseName": "[parameters('administrationContentDatabaseName')]",
-            "databaseServer": "[concat(parameters('sqlVMName'),'1.',parameters('domainName'))]",
+            "databaseServer": "[concat('RSG-EM20-SQLAO2','.',parameters('domainName'))]",
             "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":80}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
           }
         },
