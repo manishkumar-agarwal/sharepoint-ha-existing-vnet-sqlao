@@ -77,7 +77,7 @@
         "group": "Infrastructure settings",
         "description": "Change this value to your repo name if deploying from a fork"
       },
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/sharepoint-server-farm-ha"
+      "defaultValue": "https://raw.githubusercontent.com/manishkumar-agarwal/sharepoint-ha-existing-vnet-sqlao/master/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -306,8 +306,6 @@
     "rdpIPAddressName": "rdpIP",
     "vmSettings": {
       "availabilitySets": {
-        "sqlAvailabilitySetName": "sqlAvailabilitySet",
-        "adAvailabilitySetName": "adAvailabilitySet",
         "spWebAvailabilitySetName": "spWebAvailabilitySet",
         "spAppAvailabilitySetName": "spAppAvailabilitySet"
       },
@@ -360,8 +358,6 @@
       "sqllbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').sqlLBName)]",
       "spCAlbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spCALBName)]",
       "spCAResourceId": "[resourceId('Microsoft.Network/publicIPAddresses',variables('spCAIPAddressName'))]",
-      "adAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.adAvailabilitySetName)]",
-      "sqlAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.sqlAvailabilitySetName)]",
       "spWebAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spWebAvailabilitySetName)]",
       "spAppAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spAppAvailabilitySetName)]"
     },
@@ -537,12 +533,6 @@
         "parameters": {
           "location": {
             "value": "[parameters('location')]"
-          },
-          "adAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.adAvailabilitySetName]"
-          },
-          "sqlAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.sqlAvailabilitySetName]"
           },
           "spWebAvailabilitySetName": {
             "value": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]"
