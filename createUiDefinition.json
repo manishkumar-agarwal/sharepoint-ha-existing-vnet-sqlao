@@ -215,7 +215,41 @@
             "constraints": {
               "required": true
             }
+          },
+          {
+            "name": "primarySqlReplicaVMName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Primary SQL VM Name",
+            "toolTip": "The name of the Primary SQL Server VM created in SQL Always-On.",
+            "defaultValue": " ",
+            "constraints": {
+              "required": true,
+              "validationMessage": "Must be a valid, domain joined SQL VM name."
+            }
+          },
+          {
+            "name": "secondarySqlReplicaVMName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Secondary SQL VM Name",
+            "toolTip": "The name of the Secondary SQL Server VM created in SQL Always-On.",
+            "defaultValue": " ",
+            "constraints": {
+              "required": true,
+              "validationMessage": "Must be a valid, domain joined SQL VM name."
+            }
+          },
+          {
+            "name": "sqlAOAGName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "SQL AlwaysOn Group Name",
+            "toolTip": "The name of the SQL AlwaysOn Group created",
+            "defaultValue": " ",
+            "constraints": {
+              "required": true,
+              "validationMessage": "Must be the SQL AlwaysOn name."
+            }
           }
+
         ]
       },
       {

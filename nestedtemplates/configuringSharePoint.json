@@ -5,7 +5,10 @@
     "spappVMName": {
       "type": "string"
     },
-    "sqlVMName": {
+    "primarySqlReplicaVMName": {
+      "type": "string"
+    },
+    "secondarySqlReplicaVMName": {
       "type": "string"
     },
     "location": {
@@ -114,14 +117,14 @@
             },
             "databaseName": "[parameters('configDatabaseName')]",
             "sqlAlwaysOnAvailabilityGroupName": "SQLAG1",
-            "primaryReplica": "RSG-EM20-SQLAO2",
-            "secondaryReplica": "RSG-EM20-SQLAO1",
+            "primaryReplica": "[parameters('primarySqlReplicaVMName')]",
+            "secondaryReplica": "[parameters('secondarySqlReplicaVMName')]",
             "databaseNames": [
               "[parameters('administrationContentDatabaseName')]",
               "[parameters('configDatabaseName')]"
             ],
             "administrationContentDatabaseName": "[parameters('administrationContentDatabaseName')]",
-            "databaseServer": "[concat('RSG-EM20-SQLAO2','.',parameters('domainName'))]",
+            "databaseServer": "[concat(parameters('primarySqlReplicaVMName'),'.',parameters('domainName'))]",
             "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":80}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
           }
         },

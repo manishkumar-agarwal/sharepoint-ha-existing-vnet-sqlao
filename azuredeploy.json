@@ -71,7 +71,7 @@
         "artifactsLocationSasToken": ""
       },
       "defaultValue": ""
-    },    
+    },
     "domainName": {
       "type": "string",
       "metadata": {
@@ -80,14 +80,6 @@
       },
       "defaultValue": "sphafarm.local"
     },
-    "adVMSize": {
-      "type": "string",
-      "metadata": {
-        "group": "Active Directory settings",
-        "description": "The size of the AD VMs created"
-      },
-      "defaultValue": "Standard_DS1"
-    },
     "adPdcNicIPAddress": {
       "type": "string",
       "metadata": {
@@ -95,22 +87,6 @@
         "description": "The IP address of the new AD VM"
       },
       "defaultValue": "10.0.0.4"
-    },
-    "adBdcNicIPAddress": {
-      "type": "string",
-      "metadata": {
-        "group": "Active Directory settings",
-        "description": "The IP address of the new AD VM"
-      },
-      "defaultValue": "10.0.0.5"
-    },
-    "sqlVMSize": {
-      "type": "string",
-      "metadata": {
-        "group": "SQL Server settings",
-        "description": "The size of the SQL VMs created"
-      },
-      "defaultValue": "Standard_DS3"
     },
     "sqlServerServiceAccountUserName": {
       "type": "string",
@@ -127,21 +103,29 @@
         "description": "The SQL Server Service account password"
       }
     },
-    "sqlLBIPAddress": {
+    "primarySqlReplicaVMName": {
       "type": "string",
       "metadata": {
         "group": "SQL Server settings",
-        "description": "The IP address of the new SQL ILB"
+        "description": "The name of the primary SQL VMs created"
       },
-      "defaultValue": "10.0.0.6"
+      "defaultValue": " "
     },
-    "sqlSubnet": {
+    "secondarySqlReplicaVMName": {
       "type": "string",
       "metadata": {
         "group": "SQL Server settings",
-        "description": "The address range of the SQL subnet created in the new VNET"
+        "description": "The name of the secondary SQL VMs created"
       },
-      "defaultValue": "10.0.1.0/24"
+      "defaultValue": " "
+    },
+    "sqlAOAGName": {
+      "type": "string",
+      "metadata": {
+        "group": "SQL Server settings",
+        "description": "The name of the SQL AlwaysOn Group created"
+      },
+      "defaultValue": " "
     },
     "spWebSubnetName": {
       "type": "string",
@@ -270,7 +254,6 @@
       "spCALBName": "spCALoadBalancer"
     },
     "subnetNames": {
-      "sqlSubnetName": "sqlSubnet",
       "spWebSubnetName": "WTW-EM20-OP-SPWEB-SUB03",
       "spAppSubnetName": "WTW-EM20-OP-SPAPP-SUB02"
     },
@@ -309,15 +292,11 @@
       "spDiskSize": 128
     },
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
-    "sqlAOEPName": "[concat(variables('prefix'),'-hadr')]",
-    "sqlAOAGName": "[concat(variables('prefix'),'-ag')]",
-    "sqlAOListenerName": "[concat(variables('prefix'),'ag-listener')]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
     "adPdcNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
     "adBdcNicName": "[concat(variables('vmSettings').adBDCVMName,'-nic')]",
     "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
-    "sqlSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',variables('subnetNames').sqlSubnetName)]",
     "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spWebSubnetName'))]",
     "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spAppSubnetName'))]",
     "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
@@ -686,8 +665,11 @@
           "spappVMName": {
             "value": "[variables('vmSettings').spappVMName]"
           },
-          "sqlVMName": {
-            "value": "[variables('vmSettings').sqlVMName]"
+          "primarySqlReplicaVMName": {
+            "value": "[parameters('primarySqlReplicaVMName')]"
+          },
+          "secondarySqlReplicaVMName": {
+            "value": "[parameters('secondarySqlReplicaVMName')]"
           },
           "location": {
             "value": "[parameters('location')]"
@@ -717,7 +699,7 @@
             "value": "[parameters('sqlServerServiceAccountUserName')]"
           },
           "sqlAOAGName": {
-            "value": "[variables('sqlAOAGName')]"
+            "value": "[parameters('sqlAOAGName')]"
           },
           "administrationContentDatabaseName": {
             "value": "[variables('administrationContentDatabaseName')]"
