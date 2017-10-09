@@ -1,8 +1,7 @@
-# Create a High Availabilty SharePoint Farm with 9 VMs using the Powershell DSC Extension
+# Create a High Availabilty SharePoint Farm with 4 VMs using the Powershell DSC Extension
 
-This template will create a SQL Server 2014 Always On Availability Group using the PowerShell DSC Extension it creates the following resources:
+This template will create a Sharepoint farm when there ia an existing Domain Controller and SQL Server 2014 Always On Availability Group using the PowerShell DSC Extension it creates the following resources:
 
-+	A Virtual Network
 +	Three Storage Accounts one is used for AD VMs, one for SQL Server VMs and one for SP VMs
 +	Three external and one internal load balancers
 +	A NAT Rule to allow RDP to one VM which can be used as a jumpbox, a load balancer rule for ILB for a SQL Listener, a load balancer rule for HTTP traffic on port 80 for SharePoint and a NAT rule for Sharepoint Central Admin access
