@@ -185,6 +185,46 @@
       },
       "defaultValue": "Standard_DS2"
     },
+    "spAGPrefix": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The name of the prefix for SP Farm Availability groups to be created"
+      },
+      "defaultValue": " "
+    },
+    "spAppVMName1": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The name of the first SP App VM to be Created"
+      },
+      "defaultValue": " "
+    },
+    "spAppVMName2": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The name of the second SP App VM to be Created"
+      },
+      "defaultValue": " "
+    },
+    "spWebVMName1": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The name of the first SP Web VM to be Created"
+      },
+      "defaultValue": " "
+    },
+    "spWebVMName2": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The name of the second SP Web VM to be Created"
+      },
+      "defaultValue": " "
+    },
     "sharePointSetupUserAccountUserName": {
       "type": "string",
       "metadata": {
@@ -264,16 +304,12 @@
     "rdpIPAddressName": "rdpIP",
     "vmSettings": {
       "availabilitySets": {
-        "spWebAvailabilitySetName": "spWebAvailabilitySet",
-        "spAppAvailabilitySetName": "spAppAvailabilitySet"
+        "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
+        "spAppAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-APP')]"
       },
       "noOfSqlVMs": 2,
       "noOfspRoleVMs": 2,
       "vmContainerName": "vhds",
-      "adPDCVMName": "ad-pdc",
-      "adBDCVMName": "ad-bdc",
-      "sqlVMName": "sql-",
-      "sqlwVMName": "sql-w",
       "spwebVMName": "sps-web-",
       "spappVMName": "sps-app-",
       "windowsImagePublisher": "MicrosoftWindowsServer",
@@ -294,9 +330,6 @@
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
-    "adPdcNicName": "[concat(variables('vmSettings').adPDCVMName,'-nic')]",
-    "adBdcNicName": "[concat(variables('vmSettings').adBDCVMName,'-nic')]",
-    "sqlwNicName": "[concat(variables('vmSettings').sqlwVMName,'-nic')]",
     "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spWebSubnetName'))]",
     "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spAppSubnetName'))]",
     "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
