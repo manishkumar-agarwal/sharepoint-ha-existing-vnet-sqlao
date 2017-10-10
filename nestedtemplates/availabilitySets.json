@@ -13,7 +13,7 @@
     {
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[parameters('spAvailabilitySetNames')[copyIndex()].name)]",
-      "apiVersion": "2017-03-30",
+      "apiVersion": "2015-01-01",
       "location": "[parameters('location')]",
       "copy": {
         "name": "availabilitySetLoop",
