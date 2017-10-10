@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "spAvailabilitySetNames": {
-      "type":  "array"
+      "type":  "object"
     },
     "location": {
       "type": "string"
@@ -12,7 +12,7 @@
   "resources": [
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[parameters('spAvailabilitySetNames')[copyIndex()]]",
+      "name": "[parameters('spAvailabilitySetNames')[copyIndex()].name]",
       "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "copy": {
