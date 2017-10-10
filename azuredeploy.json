@@ -502,12 +502,6 @@
           "location": {
             "value": "[parameters('location')]"
           },
-          "spWebAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]"
-          },
-          "spAppAvailabilitySetName": {
-            "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
-          },
           "spAvailabilitySetNames": {
             "value": "[variables('availabilitySetsList')]"
           }
