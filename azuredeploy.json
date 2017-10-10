@@ -511,7 +511,7 @@
             "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
           },
           "spAvailabilitySetNames": {
-            "value": "[variables('availabilitySetsList')]"
+            "value": "[variables('availabilitySetsList').names]"
           }
         }
       }
