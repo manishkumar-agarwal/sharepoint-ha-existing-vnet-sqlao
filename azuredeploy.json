@@ -334,10 +334,10 @@
       "sqlDiskSize": 1000,
       "spDiskSize": 128
     },
-    "availabilitySetsList": [
-        { "name": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]" },
-        { "name": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]" }
-    ],
+    "availabilitySetsList": {
+      { "name": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]" },
+      { "name": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]" }
+    },
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
