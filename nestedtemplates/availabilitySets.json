@@ -34,12 +34,12 @@
     },
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[parameters('spAvailabilitySetNames')[0].name]",
+      "name": "[concat(parameters('spAvailabilitySetNames')[0].name,copyIndex)]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "copy": {
         "name": "availabilitySetLoop",
-        "count": "[length(parameters('spAvailabilitySetNames'))]"
+        "count": "2"
       },
       "properties": {
       }
