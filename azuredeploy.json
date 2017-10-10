@@ -334,6 +334,10 @@
       "sqlDiskSize": 1000,
       "spDiskSize": 128
     },
+    "availabilitySetsList": [
+      "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
+      "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+    ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
@@ -503,9 +507,11 @@
           },
           "spAppAvailabilitySetName": {
             "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+          },
+          "spAvailabilitySetNames": {
+            "value" :  "[variables('availabilitySetsList')]"
           }
         }
-      }
     },
     {
       "name": "SettingUpLoadBalancers",

@@ -8,6 +8,9 @@
     "spAppAvailabilitySetName": {
       "type": "string"
     },
+    "spAvailabilitySetNames": {
+      "type":  "array"
+    },
     "location": {
       "type": "string"
     }
@@ -26,6 +29,18 @@
       "name": "[parameters('spAppAvailabilitySetName')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
+      "properties": {
+      }
+    },
+    {
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[concat(parameters('spAvailabilitySetNames')[copyIndex()],copyIndex())]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('location')]",
+      "copy": {
+        "name": "availabilitySetLoop",
+        "count" :  "[length(parameters('spAvailabilitySetNames'))]"
+      },
       "properties": {
       }
     }
