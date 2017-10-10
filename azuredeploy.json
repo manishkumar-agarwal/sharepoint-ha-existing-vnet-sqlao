@@ -334,12 +334,10 @@
       "sqlDiskSize": 1000,
       "spDiskSize": 128
     },
-    "availabilitySetsList": {
-      "names": [
+    "availabilitySetsList": [
         { "name": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]" },
         { "name": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]" }
-      ]
-    },
+    ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
@@ -511,7 +509,7 @@
             "value": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
           },
           "spAvailabilitySetNames": {
-            "value": "[variables('availabilitySetsList').names]"
+            "value": "[variables('availabilitySetsList')]"
           }
         }
       }
