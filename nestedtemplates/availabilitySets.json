@@ -12,8 +12,8 @@
   "resources": [
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[parameters('spAvailabilitySetNames')[copyIndex(availabilitySetLoop)].name)]",
-      "apiVersion": "2015-06-15",
+      "name": "[parameters('spAvailabilitySetNames')[copyIndex()].name)]",
+      "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "copy": {
         "name": "availabilitySetLoop",
