@@ -307,10 +307,6 @@
         "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
         "spAppAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-APP')]"
       },
-      "availabilitySetsList": [
-        "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
-        "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
-      ],
       "noOfSqlVMs": 2,
       "noOfspRoleVMs": 2,
       "vmContainerName": "vhds",
@@ -338,6 +334,10 @@
       "sqlDiskSize": 1000,
       "spDiskSize": 128
     },
+    "availabilitySetsList": [
+      "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
+      "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+    ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
@@ -503,7 +503,7 @@
             "value": "[parameters('location')]"
           },
           "spAvailabilitySetNames": {
-            "value": "[variables('vmSettings').availabilitySetsList]"
+            "value": "[variables('availabilitySetsList')]"
           },
           "spWebAvailabilitySetName": {
             "value": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]"
