@@ -307,17 +307,28 @@
         "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
         "spAppAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-APP')]"
       },
+      "availabilitySetsList": [
+        "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
+        "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+      ],
       "noOfSqlVMs": 2,
       "noOfspRoleVMs": 2,
       "vmContainerName": "vhds",
+      "spVMNames": {
+        "spWebVMNames": [
+          "[parameters('spWebVMName1')]",
+          "[parameters('spWebVMName2')]"
+        ],
+        "spAppVMNames": [
+          "[parameters('spAppVMName1')]",
+          "[parameters('spAppVMName2')]"
+        ]
+      },
       "spwebVMName": "sps-web-",
       "spappVMName": "sps-app-",
       "windowsImagePublisher": "MicrosoftWindowsServer",
       "windowsImageOffer": "WindowsServer",
       "windowsImageSKU": "2012-R2-Datacenter",
-      "sqlImagePublisher": "MicrosoftSQLServer",
-      "sqlImageOffer": "SQL2014SP1-WS2012R2",
-      "sqlImageSKU": "Enterprise",
       "spImagePublisher": "MicrosoftSharePoint",
       "spImageOffer": "MicrosoftSharePointServer",
       "spImageSKU": "2013",
@@ -490,6 +501,9 @@
         "parameters": {
           "location": {
             "value": "[parameters('location')]"
+          },
+          "spAvailabilitySetNames": {
+            "value": "[variables('vmSettings').availabilitySetsList]"
           },
           "spWebAvailabilitySetName": {
             "value": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]"
