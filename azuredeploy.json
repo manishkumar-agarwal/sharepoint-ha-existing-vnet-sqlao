@@ -336,8 +336,8 @@
     },
     "availabilitySetsList": {
       "names": [
-        "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
-        "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+        { "name": "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]" },
+        { "name": "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]" }
       ]
     },
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",

@@ -34,7 +34,7 @@
     },
     {
       "type": "Microsoft.Compute/availabilitySets",
-      "name": "[concat(parameters('spAvailabilitySetNames').names[copyIndex()],copyIndex())]",
+      "name": "[parameters('spAvailabilitySetNames').names[copyIndex()].name]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "copy": {
