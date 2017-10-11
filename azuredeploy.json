@@ -341,9 +341,18 @@
       ]
     },
     "tempStorageArrayList": [
-      { "name": "manishsdadasa" },
-      { "name": "jhsjsajhdmanis" },
-      { "name": "manisuyder23" }
+      {
+        "name": "manishsdadasa",
+        "sku": "Standard_LRS"
+      },
+      {
+        "name": "jhsjsajhdmanis",
+        "sku": "Standard_ZRS"
+      },
+      {
+        "name": "manisuyder23",
+        "sku": "Standard_LRS"
+      }
     ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",

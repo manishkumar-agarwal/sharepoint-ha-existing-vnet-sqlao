@@ -31,7 +31,7 @@
       "location": "[resourceGroup().location]",
       "apiVersion": "2016-01-01",
       "sku": {
-        "name": "Standard_LRS"
+        "name": "[parameters('spStorageAccounts')[copyIndex()].sku]"
       },
       "copy": {
         "name": "storageloop",
