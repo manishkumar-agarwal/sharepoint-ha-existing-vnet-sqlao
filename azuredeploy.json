@@ -509,10 +509,8 @@
           "location": {
             "value": "[parameters('location')]"
           },
-          {
-            "spStorageAccounts": {
-              "value": "[variables('tempStorageArrayList')]"
-            }
+          "spStorageAccounts": {
+            "value": "[variables('tempStorageArrayList')]"
           },
           "spAvailabilitySetNames": {
             "value": "[variables('availabilitySetsList')]"
