@@ -3,7 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "spAvailabilitySetNames": {
-      "type":  "object"
+      "type": "object"
+    },
+    "spStorageAccounts": {
+      "type": "array"
     },
     "location": {
       "type": "string"
@@ -21,6 +24,24 @@
       },
       "properties": {
       }
+    },
+    {
+      "name": "[parameters('spStorageAccounts')[copyIndex()].name]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "copy": {
+        "name": "storageloop",
+        "count": "[length(parameters('spStorageAccounts'))]"
+      },
+      "dependsOn": [],
+      "tags": {
+        "displayName": "manishabc123"
+      },
+      "kind": "Storage"
     }
   ],
   "outputs": {  }

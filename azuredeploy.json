@@ -338,8 +338,13 @@
       "name": [
         "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
         "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
-      ] 
+      ]
     },
+    "tempStorageArrayList": [
+      { "name": "manishsdadasa" },
+      { "name": "jhsjsajhdmanis" },
+      { "name": "manisuyder23" }
+    ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "sharePath": "[concat(variables('prefix'),'-fsw')]",
     "clusterName": "[concat(variables('prefix'),'-fc')]",
@@ -503,6 +508,11 @@
         "parameters": {
           "location": {
             "value": "[parameters('location')]"
+          },
+          {
+            "spStorageAccounts": {
+              "value": "[variables('tempStorageArrayList')]"
+            }
           },
           "spAvailabilitySetNames": {
             "value": "[variables('availabilitySetsList')]"
