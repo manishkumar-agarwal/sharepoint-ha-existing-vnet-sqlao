@@ -2,42 +2,29 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storageAccountNamePrefix": {
-      "type": "string"
+    "storageAccountDetails": {
+      "type": "array"
     },
-    "location": {
-      "type": "string"
-    },
-    "storageAccountType": {
-      "type": "string"
+    "generalParameters": {
+      "type": "object"
     }
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), copyindex(1))]",
+      "name": "[parameters('storageAccountDetails')[copyIndex()].name]",
       "apiVersion": "2016-01-01",
-      "location": "[parameters('location')]",
+      "location": "[parameters('generalParameters').location]",
       "sku": {
-        "name": "[parameters('storageAccountType')]"
+        "name": "[parameters('storageAccountDetails')[copyIndex()].sku]"
       },
       "kind": "Storage",
+      "tags": "[parameters('generalParameters').tags]",
       "copy": {
         "name": "storageAccountLoop",
-        "count": 3
+        "count": "[length(parameters('storageAccountDetails'))]"
       },
       "properties": {}
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[concat(parameters('storageAccountNamePrefix'), '4')]",
-      "apiVersion": "2016-01-01",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "Standard_LRS"
-      },
-      "kind": "Storage",
-      "properties": { }
     }
   ],
   "outputs": {}

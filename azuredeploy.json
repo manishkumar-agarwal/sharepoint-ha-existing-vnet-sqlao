@@ -340,23 +340,25 @@
         "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
       ]
     },
-    "tempStorageArrayList": [
+    "generalParameters": {
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "manishabc123"
+      }
+    },
+    "storageAccountDetails": [
       {
-        "name": "manishsdadasa",
-        "sku": "Standard_LRS"
+        "name": "[variables('spVMDiscStorageAccount')]",
+        "sku": "[parameters('storageAccountType')]"
       },
       {
-        "name": "jhsjsajhdmanis",
-        "sku": "Standard_ZRS"
-      },
-      {
-        "name": "manisuyder23",
+        "name": "[variables('spVMDiagnoticStorageAccount')]",
         "sku": "Standard_LRS"
       }
     ],
     "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
-    "sharePath": "[concat(variables('prefix'),'-fsw')]",
-    "clusterName": "[concat(variables('prefix'),'-fc')]",
+    "spVMDiscStorageAccount": "[concat(parameters('storageAccountNamePrefix'),1)]",
+    "spVMDiagnoticStorageAccount": "[concat(parameters('storageAccountNamePrefix'),2)]",
     "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spWebSubnetName'))]",
     "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spAppSubnetName'))]",
     "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
@@ -399,14 +401,11 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
-          "storageAccountNamePrefix": {
-            "value": "[parameters('storageAccountNamePrefix')]"
-          },
-          "storageAccountType": {
-            "value": "[parameters('storageAccountType')]"
+          "storageAccountDetails": {
+            "value": "[variables('storageAccountDetails')]"
           }
         }
       }
@@ -517,9 +516,6 @@
         "parameters": {
           "location": {
             "value": "[parameters('location')]"
-          },
-          "spStorageAccounts": {
-            "value": "[variables('tempStorageArrayList')]"
           },
           "spAvailabilitySetNames": {
             "value": "[variables('availabilitySetsList')]"

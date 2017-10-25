@@ -5,9 +5,6 @@
     "spAvailabilitySetNames": {
       "type": "object"
     },
-    "spStorageAccounts": {
-      "type": "array"
-    },
     "location": {
       "type": "string"
     }
@@ -24,24 +21,6 @@
       },
       "properties": {
       }
-    },
-    {
-      "name": "[parameters('spStorageAccounts')[copyIndex()].name]",
-      "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2016-01-01",
-      "sku": {
-        "name": "[parameters('spStorageAccounts')[copyIndex()].sku]"
-      },
-      "copy": {
-        "name": "storageloop",
-        "count": "[length(parameters('spStorageAccounts'))]"
-      },
-      "dependsOn": [],
-      "tags": {
-        "displayName": "manishabc123"
-      },
-      "kind": "Storage"
     }
   ],
   "outputs": {  }
