@@ -278,15 +278,12 @@
     "administrationContentDatabaseName": "SP_AdminContent",
     "contentDatabaseName": "spfarm_Content",
     "lbSettings": {
-      "sqlLBFE": "sqlLBFE",
       "spWebLBFE": "spWebLBFE",
       "spCALBFE": "spCALBFE",
-      "sqlLBBE": "sqlLBBE",
       "spWebLBBE": "spWebLBBE",
       "spCALBBE": "spCALBBE",
       "spWebLB": "spWeb",
       "spCALB": "spCALB",
-      "sqlLBName": "sqlLoadBalancer",
       "spWebLBName": "spWebLoadBalancer",
       "spCALBName": "spCALoadBalancer"
     },
