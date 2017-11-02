@@ -278,18 +278,15 @@
     "administrationContentDatabaseName": "SP_AdminContent",
     "contentDatabaseName": "spfarm_Content",
     "lbSettings": {
-      "rdpLBFE": "rdpLBFE",
       "sqlLBFE": "sqlLBFE",
       "spWebLBFE": "spWebLBFE",
       "spCALBFE": "spCALBFE",
-      "adLBBE": "adLBBE",
       "sqlLBBE": "sqlLBBE",
       "spWebLBBE": "spWebLBBE",
       "spCALBBE": "spCALBBE",
       "spWebLB": "spWeb",
       "spCALB": "spCALB",
       "sqlLBName": "sqlLoadBalancer",
-      "rdpLBName": "rdpLoadBalancer",
       "spWebLBName": "spWebLoadBalancer",
       "spCALBName": "spCALoadBalancer"
     },
@@ -297,11 +294,8 @@
       "spWebSubnetName": "WTW-EM20-OP-SPWEB-SUB03",
       "spAppSubnetName": "WTW-EM20-OP-SPAPP-SUB02"
     },
-    "RDPNAT": "RDP",
     "spCANAT": "spCANAT",
-    "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
     "spWebProbe": "spWebProbe",
-    "rdpIPAddressName": "rdpIP",
     "vmSettings": {
       "availabilitySets": {
         "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
@@ -366,24 +360,16 @@
     "sharepointCAfqdn": "[concat(variables('spCADNSPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
     "sharepointWebfqdn": "[concat(parameters('dnsPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
     "ids": {
-      "rdplbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').rdpLBName)]",
       "spWeblbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spWebLBName)]",
-      "sqllbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').sqlLBName)]",
       "spCAlbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spCALBName)]",
       "spCAResourceId": "[resourceId('Microsoft.Network/publicIPAddresses',variables('spCAIPAddressName'))]",
       "spWebAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spWebAvailabilitySetName)]",
       "spAppAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spAppAvailabilitySetName)]"
     },
     "derivedIds": {
-      "rdplbFEConfigID": "[concat(variables('ids').rdplbID,'/frontendIPConfigurations/',variables('lbSettings').rdpLBFE)]",
       "spWebLBFEConfigID": "[concat(variables('ids').spWeblbID,'/frontendIPConfigurations/',variables('lbSettings').spWebLBFE)]",
-      "adRDPNATRuleID": "[concat(variables('ids').rdplbID,'/inboundNatRules/',variables('RDPNAT'))]",
-      "adBEAddressPoolID": "[concat(variables('ids').rdplbID,'/backendAddressPools/',variables('lbSettings').adLBBE)]",
       "spWebProbeID": "[concat(variables('ids').spWeblbID,'/probes/',variables('spWebProbe'))]",
       "spWebBEAddressPoolID": "[concat(variables('ids').spWeblbID,'/backendAddressPools/',variables('lbSettings').spWebLBBE)]",
-      "sqlBEAddressPoolID": "[concat(variables('ids').sqllbID,'/backendAddressPools/',variables('lbSettings').sqlLBBE)]",
-      "sqllbFEConfigID": "[concat(variables('ids').sqllbID,'/frontendIPConfigurations/',variables('lbSettings').sqlLBFE)]",
-      "sqllbProbeID": "[concat(variables('ids').sqllbID,'/probes/',variables('SQLAOProbe'))]",
       "spCABEAddressPoolID": "[concat(variables('ids').spCAlbID,'/backendAddressPools/',variables('lbSettings').spCALBBE)]",
       "spCAlbFEConfigID": "[concat(variables('ids').spCAlbID,'/frontendIPConfigurations/',variables('lbSettings').spCALBFE)]",
       "spCANATRuleID": "[concat(variables('ids').spCAlbID,'/inboundNatRules/',variables('spCANAT'))]"
@@ -406,41 +392,6 @@
           },
           "storageAccountDetails": {
             "value": "[variables('storageAccountDetails')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "SettingUpRdp",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'),'/','nestedtemplates','/','publicip-rdp.json', parameters('_artifactsLocationSasToken'))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "rdpIPAddressName": {
-            "value": "[variables('rdpIPAddressName')]"
-          },
-          "rdpLBName": {
-            "value": "[variables('lbSettings').rdpLBName]"
-          },
-          "rdpLBFE": {
-            "value": "[variables('lbSettings').rdpLBFE]"
-          },
-          "adLBBE": {
-            "value": "[variables('lbSettings').adLBBE]"
-          },
-          "RDPNAT": {
-            "value": "[variables('RDPNAT')]"
-          },
-          "rdplbFEConfigID": {
-            "value": "[variables('derivedIds').rdplbFEConfigID]"
           }
         }
       }
