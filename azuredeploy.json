@@ -452,8 +452,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/SettingUpSharepointCentralAdminPublicIP",
-        "Microsoft.Resources/deployments/SettingUpSharepointWebPublicIP"
+        "Microsoft.Resources/deployments/SettingUpSharepointCentralAdminPublicIP"
       ],
       "properties": {
         "mode": "Incremental",
