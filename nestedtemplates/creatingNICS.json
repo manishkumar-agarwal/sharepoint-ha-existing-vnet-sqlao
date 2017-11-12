@@ -5,8 +5,8 @@
     "generalParameters": {
       "type": "object"
     },
-    "spwebVMName": {
-      "type": "string"
+    "spwebVMNameList": {
+      "type": "array"
     },
     "spWebSubnetRef": {
       "type": "string"
@@ -14,8 +14,8 @@
     "spWebBEAddressPoolID": {
       "type": "string"
     },
-    "spappVMName": {
-      "type": "string"
+    "spappVMNameList": {
+      "type": "array"
     },
     "spAppSubnetRef": {
       "type": "string"
@@ -29,14 +29,14 @@
   },
   "resources": [
     {
-      "name": "[concat(parameters('spwebVMName'), copyIndex(),'-nic')]",
+      "name": "[concat(parameters('spwebVMNameList')[copyIndex()],'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('generalParameters').location]",
       "tags": "[parameters('generalParameters').tags]",
       "apiVersion": "2015-06-15",
       "copy": {
         "name": "spWebnicLoop",
-        "count": 2
+        "count": "[length(parameters('spwebVMNameList'))]"
       },
       "properties": {
         "ipConfigurations": [
@@ -58,7 +58,7 @@
       }
     },
     {
-      "name": "[concat(parameters('spappVMName'),'0-nic')]",
+      "name": "[concat(parameters('spappVMNameList')[0],'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('generalParameters').location]",
       "tags": "[parameters('generalParameters').tags]",
@@ -88,7 +88,7 @@
       }
     },
     {
-      "name": "[concat(parameters('spappVMName'),'1-nic')]",
+      "name": "[concat(parameters('spappVMNameList')[1],'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('generalParameters').location]",
       "tags": "[parameters('generalParameters').tags]",

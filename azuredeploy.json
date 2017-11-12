@@ -320,9 +320,6 @@
       },
       "spwebVMName": "sps-web-",
       "spappVMName": "sps-app-",
-      "windowsImagePublisher": "MicrosoftWindowsServer",
-      "windowsImageOffer": "WindowsServer",
-      "windowsImageSKU": "2012-R2-Datacenter",
       "spImagePublisher": "MicrosoftSharePoint",
       "spImageOffer": "MicrosoftSharePointServer",
       "spImageSKU": "2013",
@@ -502,8 +499,8 @@
           "generalParameters": {
             "value": "[variables('generalParameters')]"
           },
-          "spwebVMName": {
-            "value": "[variables('vmSettings').spwebVMName]"
+          "spwebVMNameList": {
+            "value": "[variables('vmSettings').spVMNames.spWebVMNames]"
           },
           "spWebSubnetRef": {
             "value": "[variables('spWebSubnetRef')]"
@@ -511,8 +508,8 @@
           "spWebBEAddressPoolID": {
             "value": "[variables('derivedIds').spWebBEAddressPoolID]"
           },
-          "spappVMName": {
-            "value": "[variables('vmSettings').spappVMName]"
+          "spappVMNameList": {
+            "value": "[variables('vmSettings').spVMNames.spAppVMNames]"
           },
           "spAppSubnetRef": {
             "value": "[variables('spAppSubnetRef')]"
