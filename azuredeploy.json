@@ -506,33 +506,6 @@
           },
           "spCAlbFEConfigID": {
             "value": "[variables('derivedIds').spCAlbFEConfigID]"
-          },
-          "spWebLBName": {
-            "value": "[variables('lbSettings').spWebLBName]"
-          },
-          "spWebLBFE": {
-            "value": "[variables('lbSettings').spWebLBFE]"
-          },
-          "spWebResourceId": {
-            "value": "[variables(concat('spWebResourceId',parameters('spWebIPNewOrExisting')))]"
-          },
-          "spWebLBBE": {
-            "value": "[variables('lbSettings').spWebLBBE]"
-          },
-          "spWebLB": {
-            "value": "[variables('lbSettings').spWebLB]"
-          },
-          "spWebLBFEConfigID": {
-            "value": "[variables('derivedIds').spWebLBFEConfigID]"
-          },
-          "spWebBEAddressPoolID": {
-            "value": "[variables('derivedIds').spWebBEAddressPoolID]"
-          },
-          "spWebProbeID": {
-            "value": "[variables('derivedIds').spWebProbeID]"
-          },
-          "spWebProbe": {
-            "value": "[variables('spWebProbe')]"
           }
         }
       }
