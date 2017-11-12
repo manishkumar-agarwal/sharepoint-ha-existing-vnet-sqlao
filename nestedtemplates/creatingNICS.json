@@ -46,7 +46,7 @@
               "subnet": {
                 "id": "[parameters('spWebSubnetRef')]"
               },
-              "loadBalancerBackendAddressPools": [
+              "applicationGatewayBackendAddressPools": [
                 {
                   "id": "[parameters('spWebBEAddressPoolID')]"
                 }
