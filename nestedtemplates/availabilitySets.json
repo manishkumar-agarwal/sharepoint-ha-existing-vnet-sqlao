@@ -5,8 +5,8 @@
     "spAvailabilitySetNames": {
       "type": "object"
     },
-    "location": {
-      "type": "string"
+    "generalParameters": {
+      "type": "object"
     }
   },
   "resources": [
@@ -14,7 +14,8 @@
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[parameters('spAvailabilitySetNames').name[copyIndex()]]",
       "apiVersion": "2017-03-30",
-      "location": "[parameters('location')]",
+      "location": "[parameters('generalParameters').location]",
+      "tags": "[parameters('generalParameters').tags]",
       "copy": {
         "name": "availabilitySetLoop",
         "count": "[int(length(parameters('spAvailabilitySetNames').name))]"

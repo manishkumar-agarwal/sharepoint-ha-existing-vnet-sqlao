@@ -2,8 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "location": {
-      "type": "string"
+    "generalParameters": {
+      "type": "object"
     },
     "spCALBName": {
       "type": "string"
@@ -29,7 +29,8 @@
       "apiVersion": "2015-06-15",
       "name": "[parameters('spCALBName')]",
       "type": "Microsoft.Network/loadBalancers",
-      "location": "[parameters('location')]",
+      "tags": "[parameters('generalParameters').tags]",
+      "location": "[parameters('generalParameters').location]",
       "properties": {
         "frontendIPConfigurations": [
           {

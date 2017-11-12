@@ -402,35 +402,6 @@
       }
     },
     {
-      "name": "SettingUpSharepointWebPublicIP",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(parameters('_artifactsLocation'),'/','nestedtemplates','/','publicip-',parameters('spWebIPNewOrExisting'),'.json', parameters('_artifactsLocationSasToken'))]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "publicIPAddressName": {
-            "value": "[parameters('spWebIPAddressName')]"
-          },
-          "publicIPAddressType": {
-            "value": "dynamic"
-          },
-          "dnsPrefix": {
-            "value": "[parameters('dnsPrefix')]"
-          },
-          "publicIpRGName": {
-            "value": "[parameters('spWebIPRGName')]"
-          }
-        }
-      }
-    },
-    {
       "name": "SettingUpSharepointCentralAdminPublicIP",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
@@ -441,8 +412,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
           "publicIPAddressName": {
             "value": "[variables('spCAIPAddressName')]"
@@ -452,9 +423,6 @@
           },
           "dnsPrefix": {
             "value": "[variables('spCADNSPrefix')]"
-          },
-          "publicIpRGName": {
-            "value": "[resourceGroup().name]"
           }
         }
       }
@@ -470,8 +438,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
           "spAvailabilitySetNames": {
             "value": "[variables('availabilitySetsList')]"
@@ -494,8 +462,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
           "spCALBName": {
             "value": "[variables('lbSettings').spCALBName]"
@@ -532,8 +500,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
           "spwebVMName": {
             "value": "[variables('vmSettings').spwebVMName]"

@@ -2,8 +2,8 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "location": {
-      "type": "string"
+    "generalParameters": {
+      "type": "object"
     },
     "spwebVMName": {
       "type": "string"
@@ -31,7 +31,8 @@
     {
       "name": "[concat(parameters('spwebVMName'), copyIndex(),'-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
+      "location": "[parameters('generalParameters').location]",
+      "tags": "[parameters('generalParameters').tags]",
       "apiVersion": "2015-06-15",
       "copy": {
         "name": "spWebnicLoop",
@@ -59,7 +60,8 @@
     {
       "name": "[concat(parameters('spappVMName'),'0-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
+      "location": "[parameters('generalParameters').location]",
+      "tags": "[parameters('generalParameters').tags]",
       "apiVersion": "2015-06-15",
       "properties": {
         "ipConfigurations": [
@@ -88,7 +90,8 @@
     {
       "name": "[concat(parameters('spappVMName'),'1-nic')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[parameters('location')]",
+      "location": "[parameters('generalParameters').location]",
+      "tags": "[parameters('generalParameters').tags]",
       "apiVersion": "2015-06-15",
       "properties": {
         "ipConfigurations": [
