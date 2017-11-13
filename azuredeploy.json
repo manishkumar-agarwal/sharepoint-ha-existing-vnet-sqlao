@@ -300,14 +300,11 @@
     },
     "spCANAT": "spCANAT",
     "spWebProbe": "spWebProbe",
+    "availabilitySets": {
+      "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
+      "spAppAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-APP')]"
+    },
     "vmSettings": {
-      "availabilitySets": {
-        "spWebAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-WEB')]",
-        "spAppAvailabilitySetName": "[concat(parameters('spAGPrefix'),'-APP')]"
-      },
-      "noOfSqlVMs": 2,
-      "noOfspRoleVMs": 2,
-      "vmContainerName": "vhds",
       "spVMNames": {
         "spWebVMNames": [
           "[parameters('spWebVMName1')]",
@@ -320,19 +317,41 @@
       },
       "spwebVMName": "sps-web-",
       "spappVMName": "sps-app-",
-      "spImagePublisher": "MicrosoftSharePoint",
-      "spImageOffer": "MicrosoftSharePointServer",
-      "spImageSKU": "2013",
-      "rdpPort": 3389,
-      "spCentralAdminPort": 80,
-      "windowsDiskSize": 128,
-      "sqlDiskSize": 1000,
-      "spDiskSize": 128
+      "vmSetup": {
+        "spImagePublisher": "MicrosoftSharePoint",
+        "spImageOffer": "MicrosoftSharePointServer",
+        "spImageSKU": "2013",
+        "spDiskSize": 128,
+        "spVMSize": "[parameters('spVMSize')]",
+        "vmContainerName": "vhds",
+        "vmList": [
+          {
+            "vmName": "[parameters('spAppVMName1')]",
+            "vmAvailabilitySet": "[variables('ids').spAppAvailabilitySetName]"
+          },
+          {
+            "vmName": "[parameters('spAppVMName2')]",
+            "vmAvailabilitySet": "[variables('ids').spAppAvailabilitySetName]"
+          },
+          {
+            "vmName": "[parameters('spWebVMName1')]",
+            "vmAvailabilitySet": "[variables('ids').spWebAvailabilitySetName]"
+          },
+          {
+            "vmName": "[parameters('spWebVMName2')]",
+            "vmAvailabilitySet": "[variables('ids').spWebAvailabilitySetName]"
+          }
+        ],
+        "rdpPort": 3389,
+        "spCentralAdminPort": 80,
+        "discStorageAccount": "[variables('spVMDiscStorageAccount')]",
+        "diagnosticStorageAccount": "[variables('spVMDiagnoticStorageAccount')]"
+      }
     },
     "availabilitySetsList": {
       "name": [
-        "[variables('vmSettings').availabilitySets.spWebAvailabilitySetName]",
-        "[variables('vmSettings').availabilitySets.spAppAvailabilitySetName]"
+        "[variables('availabilitySets').spWebAvailabilitySetName]",
+        "[variables('availabilitySets').spAppAvailabilitySetName]"
       ]
     },
     "generalParameters": {
@@ -364,13 +383,12 @@
       "spWeblbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spWebLBName)]",
       "spCAlbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spCALBName)]",
       "spCAResourceId": "[resourceId('Microsoft.Network/publicIPAddresses',variables('spCAIPAddressName'))]",
-      "spWebAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spWebAvailabilitySetName)]",
-      "spAppAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('vmSettings').availabilitySets.spAppAvailabilitySetName)]"
+      "spWebAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySets').spWebAvailabilitySetName)]",
+      "spAppAvailabilitySetName": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySets').spAppAvailabilitySetName)]"
     },
     "derivedIds": {
       "spWebLBFEConfigID": "[concat(variables('ids').spWeblbID,'/frontendIPConfigurations/',variables('lbSettings').spWebLBFE)]",
       "spWebProbeID": "[concat(variables('ids').spWeblbID,'/probes/',variables('spWebProbe'))]",
-      "spWebBEAddressPoolID1": "[concat(variables('ids').spWeblbID,'/backendAddressPools/',variables('lbSettings').spWebLBBE)]",
       "spWebBEAddressPoolID": "[concat(parameters('spWebApplicationGatewayBackendPool'),'/backendAddressPools/appGatewayBackendPool')]",
       "spCABEAddressPoolID": "[concat(variables('ids').spCAlbID,'/backendAddressPools/',variables('lbSettings').spCALBBE)]",
       "spCAlbFEConfigID": "[concat(variables('ids').spCAlbID,'/frontendIPConfigurations/',variables('lbSettings').spCALBFE)]",
@@ -539,44 +557,17 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "spappVMName": {
-            "value": "[variables('vmSettings').spappVMName]"
+          "generalParameters": {
+            "value": "[variables('generalParameters')]"
           },
-          "spwebVMName": {
-            "value": "[variables('vmSettings').spwebVMName]"
-          },
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "spVMSize": {
-            "value": "[parameters('spVMSize')]"
-          },
-          "spWebAvailabilitySet": {
-            "value": "[variables('ids').spWebAvailabilitySetName]"
-          },
-          "spAppAvailabilitySet": {
-            "value": "[variables('ids').spAppAvailabilitySetName]"
+          "vmSetup": {
+            "value": "[variables('vmSettings').vmSetup]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"
           },
           "adminPassword": {
             "value": "[parameters('adminPassword')]"
-          },
-          "spImagePublisher": {
-            "value": "[variables('vmSettings').spImagePublisher]"
-          },
-          "spImageOffer": {
-            "value": "[variables('vmSettings').spImageOffer]"
-          },
-          "spImageSKU": {
-            "value": "[variables('vmSettings').spImageSKU]"
-          },
-          "vmContainerName": {
-            "value": "[variables('vmSettings').vmContainerName]"
-          },
-          "storageAccountNamePrefix": {
-            "value": "[parameters('storageAccountNamePrefix')]"
           },
           "spPreparationModulesURL": {
             "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServerHA.ps1.zip', parameters('_artifactsLocationSasToken'))]"
