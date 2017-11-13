@@ -61,7 +61,7 @@
         "group": "Infrastructure settings",
         "description": "Change this value to your repo name if deploying from a fork"
       },
-      "defaultValue": "https://raw.githubusercontent.com/manishkumar-agarwal/sharepoint-ha-existing-vnet-sqlao/master/"
+      "defaultValue": "https://raw.githubusercontent.com/manishkumar-agarwal/sharepoint-ha-existing-vnet-sqlao/master"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
