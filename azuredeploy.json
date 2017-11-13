@@ -598,8 +598,8 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "spappVMName": {
-            "value": "[variables('vmSettings').spappVMName]"
+          "spappVMNames": {
+            "value": "[variables('vmSettings').spVMNames.spAppVMNames]"
           },
           "primarySqlReplicaVMName": {
             "value": "[parameters('primarySqlReplicaVMName')]"
@@ -661,8 +661,8 @@
           "sqlServerServiceAccountPassword": {
             "value": "[parameters('sqlServerServiceAccountPassword')]"
           },
-          "spwebVMName": {
-            "value": "[variables('vmSettings').spwebVMName]"
+          "spwebVMNames": {
+            "value": "[variables('vmSettings').spVMNames.spWebVMNames]"
           },
           "sharepointFarmName": {
             "value": "[parameters('sharepointFarmName')]"
