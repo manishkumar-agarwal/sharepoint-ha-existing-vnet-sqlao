@@ -125,7 +125,7 @@
             ],
             "administrationContentDatabaseName": "[parameters('administrationContentDatabaseName')]",
             "databaseServer": "[concat(parameters('primarySqlReplicaVMName'),'.',parameters('domainName'))]",
-            "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":80}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
+            "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":10000}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
           }
         },
         "protectedSettings": {
@@ -185,7 +185,7 @@
             "primaryReplica": "[concat(parameters('primarySqlReplicaVMName'))]",
             "secondaryReplica": "[concat(parameters('secondarySqlReplicaVMName'))]",
             "databaseNames": null,
-            "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":80}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
+            "configuration": "[concat('{\"roles\":[{\"type\":\"application\",\"properties\":{\"fqdn\":\"',parameters('sharepointCAfqdn'),'\",\"port\":10000}}],\"configureForHa\":\"True\",\"loadBalancedSetProbePort\":8088}')]"
           }
         },
         "protectedSettings": {
