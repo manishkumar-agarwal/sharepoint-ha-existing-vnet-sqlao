@@ -56,7 +56,7 @@
               },
               "protocol": "tcp",
               "frontendPort": 80,
-              "backendPort": 80,
+              "backendPort": 10000,
               "enableFloatingIP": false
             }
           }
