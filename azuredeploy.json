@@ -143,24 +143,12 @@
       },
       "defaultValue": "10.0.3.0/24"
     },
-    "spWebIPRGName": {
+    "sharepointWebfqdn": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
         "group": "SharePoint Server settings",
-        "description": "Resource Group containing existing SP Web IP address"
-      }
-    },
-    "spWebIPNewOrExisting": {
-      "type": "string",
-      "defaultValue": "new",
-      "allowedValues": [
-        "new",
-        "existing"
-      ],
-      "metadata": {
-        "group": "SharePoint Server settings",
-        "description": "Indicates whether the Sharepoint farm's IP is new or existing"
+        "description": "Fully Qualified domain name for the sharepoint website"
       }
     },
     "spWebIPAddressName": {
@@ -364,15 +352,12 @@
         "sku": "Standard_LRS"
       }
     ],
-    "prefix": "[tolower(trim(subString(concat(parameters('dnsPrefix'),'           '),0,10)))]",
     "spVMDiscStorageAccount": "[concat(parameters('storageAccountNamePrefix'),1)]",
     "spVMDiagnoticStorageAccount": "[concat(parameters('storageAccountNamePrefix'),2)]",
     "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spWebSubnetName'))]",
     "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spAppSubnetName'))]",
-    "spWebResourceIdexisting": "[resourceId(parameters('spWebIPRGName'),concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
-    "spWebResourceIdnew": "[resourceId(concat('Microsoft.Network','/','publicIPAddresses'),parameters('spWebIPAddressName'))]",
     "sharepointCAfqdn": "[concat(variables('spCADNSPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
-    "sharepointWebfqdn": "[concat(parameters('dnsPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
+    "sharepointWebfqdn1": "[concat(parameters('dnsPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",
     "ids": {
       "spWeblbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spWebLBName)]",
       "spCAlbID": "[resourceId('Microsoft.Network/loadBalancers',variables('lbSettings').spCALBName)]",
@@ -662,7 +647,7 @@
             "value": "[parameters('sharepointFarmName')]"
           },
           "sharepointWebfqdn": {
-            "value": "[variables('sharepointWebfqdn')]"
+            "value": "[parameters('sharepointWebfqdn')]"
           },
           "spSiteTemplateName": {
             "value": "[parameters('spSiteTemplateName')]"
@@ -673,7 +658,7 @@
   ],
   "outputs": {
     "fqdn": {
-      "value": "[variables('sharepointWebfqdn')]",
+      "value": "[parameters('sharepointWebfqdn')]",
       "type": "string"
     },
     "cafqdn": {
