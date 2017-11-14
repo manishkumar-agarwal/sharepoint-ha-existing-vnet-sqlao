@@ -294,10 +294,6 @@
       "spWebLBName": "spWebLoadBalancer",
       "spCALBName": "spCALoadBalancer"
     },
-    "subnetNames": {
-      "spWebSubnetName": "WTW-EM20-OP-SPWEB-SUB03",
-      "spAppSubnetName": "WTW-EM20-OP-SPAPP-SUB02"
-    },
     "spCANAT": "spCANAT",
     "spWebProbe": "spWebProbe",
     "availabilitySets": {
@@ -315,8 +311,6 @@
           "[parameters('spAppVMName2')]"
         ]
       },
-      "spwebVMName": "sps-web-",
-      "spappVMName": "sps-app-",
       "vmSetup": {
         "spImagePublisher": "MicrosoftSharePoint",
         "spImageOffer": "MicrosoftSharePointServer",
