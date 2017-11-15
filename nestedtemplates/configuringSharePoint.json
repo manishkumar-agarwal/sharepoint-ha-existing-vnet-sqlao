@@ -201,7 +201,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('spwebVMNames')[0],'/ConfigureSPWebServer')]",
+      "name": "[concat(parameters('spwebVMNames')[0],'/ConfigureSPAppServer')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -261,11 +261,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('spwebVMNames')[1],'/ConfigureSPWebServer')]",
+      "name": "[concat(parameters('spwebVMNames')[1],'/ConfigureSPAppServer')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('spwebVMNames')[0], 'ConfigureSPWebServer')]"
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('spwebVMNames')[0], 'ConfigureSPAppServer')]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
