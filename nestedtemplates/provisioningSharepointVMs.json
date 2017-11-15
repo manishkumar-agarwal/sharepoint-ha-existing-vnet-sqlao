@@ -20,6 +20,9 @@
     "spPreparationFunction": {
       "type": "string"
     },
+    "spInstallUrl": {
+      "type": "string"
+    },
     "domainName": {
       "type": "string"
     },
@@ -95,11 +98,35 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPAppServer')]",
+      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPSoftware')]",
       "apiVersion": "2015-06-15",
       "location": "[parameters('generalParameters').location]",
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]"
+      ],
+      "copy": {
+        "name": "spVmsInstallationLoop",
+        "count": "[length(parameters('vmSetup').vmList)]"
+      },
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.9",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": "[parameters('spInstallUrl')]",
+          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File LanguagepackInstall.ps1 "
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPAppServer')]",
+      "apiVersion": "2015-06-15",
+      "location": "[parameters('generalParameters').location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmSetup').vmList[copyIndex()].vmName,'ConfigureSPSoftware')]"
       ],
       "copy": {
         "name": "spVmsPrepareLoop",

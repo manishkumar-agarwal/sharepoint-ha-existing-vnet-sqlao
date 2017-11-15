@@ -1,8 +1,8 @@
 ﻿<# Custom Script for Windows to install a file from Azure Storage using the staging folder created by the deployment script #>
 param (
-    [string]$artifactsLocation1,
-	[string]$artifactsLocation2,
-	[string]$artifactsLocation3
+    [string]$artifactsLocation1 = "https://rsgnaem20cvmstg1.blob.core.windows.net/servicelanguagepacks/LanguagePacks.zip",
+	[string]$artifactsLocation2 = "https://rsgnaem20cvmstg1.blob.core.windows.net/servicelanguagepacks/LanguagePacksSP1.zip",
+	[string]$artifactsLocation3 = "https://rsgnaem20cvmstg1.blob.core.windows.net/2016-cu/CUJan2016.zip"
     )
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem

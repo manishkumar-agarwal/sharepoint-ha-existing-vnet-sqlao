@@ -554,6 +554,9 @@
           "spPreparationFunction": {
             "value": "PrepareSharePointServerHA.ps1\\PrepareSharePointServerHA"
           },
+          "spInstallUrl": {
+            "value": "[concat(parameters('_artifactsLocation'),'/','cse','/','LanguagepackInstall.ps1', parameters('_artifactsLocationSasToken'))]"
+          },
           "domainName": {
             "value": "[parameters('domainName')]"
           },
