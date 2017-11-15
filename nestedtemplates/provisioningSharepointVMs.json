@@ -114,7 +114,9 @@
         "typeHandlerVersion": "1.9",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[parameters('spInstallUrl')]",
+          "fileUris": [
+            "[parameters('spInstallUrl')]"
+          ],
           "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File LanguagepackInstall.ps1 "
         }
       }
