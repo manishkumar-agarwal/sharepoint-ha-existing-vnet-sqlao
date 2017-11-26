@@ -45,9 +45,9 @@
         "hardwareProfile": {
           "vmSize": "[parameters('vmSetup').spVMSize]"
         },
-        "availabilitySet": {
+       /* "availabilitySet": {
           "id": "[parameters('vmSetup').vmList[copyIndex()].vmAvailabilitySet]"
-        },
+        },*/
         "osProfile": {
           "computerName": "[parameters('vmSetup').vmList[copyIndex()].vmName]",
           "adminUsername": "[parameters('adminUsername')]",
