@@ -93,7 +93,7 @@
         }
       }
     },
-    {
+  /*  {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPSoftware')]",
       "apiVersion": "2015-06-15",
@@ -117,7 +117,7 @@
           "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File LanguagepackInstall.ps1 "
         }
       }
-    },
+    },*/
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPAppServer')]",
