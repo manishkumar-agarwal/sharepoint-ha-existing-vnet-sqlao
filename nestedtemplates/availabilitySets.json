@@ -24,6 +24,8 @@
         "count": "[int(length(parameters('spAvailabilitySetNames').name))]"
       },
       "properties": {
+        "platformUpdateDomainCount": 5,
+        "platformFaultDomainCount": 2
       }
     }
   ],
