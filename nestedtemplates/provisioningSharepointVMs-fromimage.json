@@ -103,8 +103,7 @@
       "apiVersion": "2015-06-15",
       "location": "[parameters('generalParameters').location]",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmSetup').vmList[copyIndex()].vmName,'ConfigureSPSoftware')]"
+        "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]"
       ],
       "copy": {
         "name": "spVmsPrepareLoop",
