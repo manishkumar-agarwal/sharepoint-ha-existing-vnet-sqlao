@@ -14,6 +14,9 @@
       "type": "Microsoft.Compute/availabilitySets",
       "name": "[parameters('spAvailabilitySetNames').name[copyIndex()]]",
       "apiVersion": "2017-03-30",
+      "sku": {
+        "name" : "Aligned"
+      },
       "location": "[parameters('generalParameters').location]",
       "tags": "[parameters('generalParameters').tags]",
       "copy": {

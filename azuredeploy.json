@@ -188,6 +188,14 @@
       },
       "defaultValue": " "
     },
+    "spVmImage": {
+      "type": "string",
+      "metadata": {
+        "group": "SharePoint Server settings",
+        "description": "The custom image of the sharepoint. This can be found in the properties of the Managed image"
+      },
+      "defaultValue": " "
+    },
     "spAppVMName1": {
       "type": "string",
       "metadata": {
@@ -541,6 +549,9 @@
           },
           "vmSetup": {
             "value": "[variables('vmSettings').vmSetup]"
+          },
+          "vmImage": {
+            "value": "[parameters('spVmImage')]"
           },
           "adminUsername": {
             "value": "[parameters('adminUsername')]"

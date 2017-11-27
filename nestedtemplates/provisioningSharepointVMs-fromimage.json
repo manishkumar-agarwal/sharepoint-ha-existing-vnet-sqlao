@@ -8,6 +8,9 @@
     "vmSetup": {
       "type": "object"
     },
+    "vmImage": {
+      "type": "string"
+    },
     "adminUsername": {
       "type": "string"
     },
@@ -45,9 +48,9 @@
         "hardwareProfile": {
           "vmSize": "[parameters('vmSetup').spVMSize]"
         },
-       /* "availabilitySet": {
+        "availabilitySet": {
           "id": "[parameters('vmSetup').vmList[copyIndex()].vmAvailabilitySet]"
-        },*/
+        },
         "osProfile": {
           "computerName": "[parameters('vmSetup').vmList[copyIndex()].vmName]",
           "adminUsername": "[parameters('adminUsername')]",
@@ -55,7 +58,7 @@
         },
         "storageProfile": {
           "imageReference": {
-            "id": "/subscriptions/badd276d-8e37-4f2e-b5d5-46e8ed581611/resourceGroups/manishopspvmimagegroup/providers/Microsoft.Compute/images/manishimgvm-imagewithdisk-20171124222026"
+            "id": "[parameters('vmImage')]"
           },
           "osDisk": {
             "osType": "Windows",
@@ -73,7 +76,8 @@
               },
               "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk1')]",
               "caching": "ReadWrite",
-              "createOption": "FromImage",
+              "createOption": "Empty",
+              "diskSizeGB": 128,
               "lun": 0
             }
           ]
@@ -93,31 +97,6 @@
         }
       }
     },
-  /*  {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPSoftware')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('generalParameters').location]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]"
-      ],
-      "copy": {
-        "name": "spVmsInstallationLoop",
-        "count": "[length(parameters('vmSetup').vmList)]"
-      },
-      "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.9",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "fileUris": [
-            "[parameters('spInstallUrl')]"
-          ],
-          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File LanguagepackInstall.ps1 "
-        }
-      }
-    },*/
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/ConfigureSPAppServer')]",
