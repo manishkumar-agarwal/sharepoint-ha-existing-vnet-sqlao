@@ -360,8 +360,8 @@
         "sku": "Standard_LRS"
       }
     ],
-    "spVMDiscStorageAccount": "[concat(parameters('storageAccountNamePrefix'),1)]",
-    "spVMDiagnoticStorageAccount": "[concat(parameters('storageAccountNamePrefix'),2)]",
+    "spVMDiscStorageAccount": "[concat(parameters('storageAccountNamePrefix'),2)]",
+    "spVMDiagnoticStorageAccount": "[concat(parameters('storageAccountNamePrefix'),1)]",
     "spWebSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spWebSubnetName'))]",
     "spAppSubnetRef": "[concat(parameters('virtualNetworkName'),'/subnets/',parameters('spAppSubnetName'))]",
     "sharepointCAfqdn": "[concat(variables('spCADNSPrefix'),'.',toLower(trim(replace(parameters('location'),' ' ,''))),'.cloudapp.azure.com')]",

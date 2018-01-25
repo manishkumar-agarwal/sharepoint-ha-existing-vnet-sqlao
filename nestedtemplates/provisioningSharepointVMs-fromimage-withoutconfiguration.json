@@ -1,0 +1,102 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "generalParameters": {
+      "type": "object"
+    },
+    "vmSetup": {
+      "type": "object"
+    },
+    "vmImage": {
+      "type": "string"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "securestring"
+    },
+    "spPreparationModulesURL": {
+      "type": "string"
+    },
+    "spPreparationFunction": {
+      "type": "string"
+    },
+    "spInstallUrl": {
+      "type": "string"
+    },
+    "domainName": {
+      "type": "string"
+    },
+    "DNSServer": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('vmSetup').vmList[copyIndex()].vmName]",
+      "location": "[parameters('generalParameters').location]",
+      "tags": "[parameters('generalParameters').tags]",
+      "copy": {
+        "name": "spVMLoop",
+        "count": "[length(parameters('vmSetup').vmList)]"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('vmSetup').spVMSize]"
+        },
+        "availabilitySet": {
+          "id": "[parameters('vmSetup').vmList[copyIndex()].vmAvailabilitySet]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmSetup').vmList[copyIndex()].vmName]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "id": "[parameters('vmImage')]"
+          },
+          "osDisk": {
+            "osType": "Windows",
+            "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-osdisk')]",
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          },
+          "dataDisks": [
+            {
+              "managedDisk": {
+                "storageAccountType": "Standard_LRS"
+              },
+              "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk1')]",
+              "caching": "ReadWrite",
+              "createOption": "Empty",
+              "diskSizeGB": 128,
+              "lun": 0
+            }
+          ]
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces',concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-nic'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', parameters('vmSetup').diagnosticStorageAccount), '2016-01-01').primaryEndpoints.blob)]"
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}
