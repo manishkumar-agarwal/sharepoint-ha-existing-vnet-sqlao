@@ -77,8 +77,18 @@
               "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk1')]",
               "caching": "ReadWrite",
               "createOption": "Empty",
-              "diskSizeGB": 128,
+              "diskSizeGB": 250,
               "lun": 0
+            },
+            {
+              "managedDisk": {
+                "storageAccountType": "Standard_LRS"
+              },
+              "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk1')]",
+              "caching": "ReadWrite",
+              "createOption": "Empty",
+              "diskSizeGB": 250,
+              "lun": 1
             }
           ]
         },
