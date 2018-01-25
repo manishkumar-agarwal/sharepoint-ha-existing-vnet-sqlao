@@ -84,7 +84,7 @@
               "managedDisk": {
                 "storageAccountType": "Standard_LRS"
               },
-              "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk1')]",
+              "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'-data-disk2')]",
               "caching": "ReadWrite",
               "createOption": "Empty",
               "diskSizeGB": 250,
