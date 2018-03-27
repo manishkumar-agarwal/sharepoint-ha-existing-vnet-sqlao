@@ -150,7 +150,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/scriptconfig')]",
+      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/scriptconfig')]",
       "apiVersion": "2016-04-30-preview",
       "location": "[resourceGroup().location]",
       "copy": {
