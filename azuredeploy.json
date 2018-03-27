@@ -10,6 +10,14 @@
       },
       "defaultValue": "spfarm"
     },
+    "pocEmail": {
+      "type": "string",
+      "metadata": {
+        "group": "basics",
+        "description": "The email contact to be used in tags for resoruces"
+      },
+      "defaultValue": "testemail@test1.com"
+    },
     "location": {
       "type": "string",
       "metadata": {
@@ -26,6 +34,20 @@
       }
     },
     "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "group": "Infrastructure settings",
+        "description": "The password for the administrator account of the new VMs and Domain"
+      }
+    },
+    "domainAdminUsername": {
+      "type": "string",
+      "metadata": {
+        "group": "Infrastructure settings",
+        "description": "The name of the administrator account of the new VMs and Domain"
+      }
+    },
+    "domainAdminPassword": {
       "type": "securestring",
       "metadata": {
         "group": "Infrastructure settings",
@@ -79,6 +101,14 @@
         "description": "The FQDN of the AD Domain created "
       },
       "defaultValue": "sphafarm.local"
+    },
+    "ouPath": {
+      "type": "string",
+      "metadata": {
+        "group": "Active Directory settings",
+        "description": "The OU Path for joining the machines to the domain specified"
+      },
+      "defaultValue": "CN=Computers,DC=wtw_test,DC=local"
     },
     "adPdcNicIPAddress": {
       "type": "string",
@@ -347,7 +377,9 @@
     "generalParameters": {
       "location": "[resourceGroup().location]",
       "tags": {
-        "displayName": "manishabc123"
+        "LOB": "RSGNA",
+        "POC": "[parameters('pocEmail')]",
+        "Project": "OnePlace"
       }
     },
     "storageAccountDetails": [
@@ -558,6 +590,15 @@
           },
           "adminPassword": {
             "value": "[parameters('adminPassword')]"
+          },
+          "domainAdminUsername": {
+            "value": "[parameters('domainAdminUsername')]"
+          },
+          "domainAdminPassword": {
+            "value": "[parameters('domainAdminPassword')]"
+          },
+          "ouPath": {
+            "value": "[parameters('ouPath')]"
           },
           "spPreparationModulesURL": {
             "value": "[concat(parameters('_artifactsLocation'),'/','dscv2','/','PrepareSharePointServerHA.ps1.zip', parameters('_artifactsLocationSasToken'))]"

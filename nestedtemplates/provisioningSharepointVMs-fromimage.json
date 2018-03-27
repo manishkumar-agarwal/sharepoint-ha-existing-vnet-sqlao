@@ -17,6 +17,12 @@
     "adminPassword": {
       "type": "securestring"
     },
+    "domainAdminUsername": {
+      "type": "string"
+    },
+    "domainAdminPassword": {
+      "type": "securestring"
+    },
     "spPreparationModulesURL": {
       "type": "string"
     },
@@ -27,6 +33,9 @@
       "type": "string"
     },
     "domainName": {
+      "type": "string"
+    },
+    "ouPath": {
       "type": "string"
     },
     "DNSServer": {

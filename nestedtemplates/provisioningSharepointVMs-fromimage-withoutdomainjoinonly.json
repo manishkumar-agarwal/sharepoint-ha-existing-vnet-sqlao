@@ -42,6 +42,9 @@
       "type": "string"
     }
   },
+  "variables": {
+    "addUsers": " manis549 manis549adm xiyua565 xiyua565adm 'RSG Server Admins'"
+  },
   "resources": [
     {
       "apiVersion": "2017-03-30",
@@ -115,7 +118,62 @@
           }
         }
       }
+    },
+    {
+      "apiVersion": "2016-04-30-preview",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/joindomain')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines',parameters('vmSetup').vmList[copyIndex()].vmName)]"
+      ],
+      "copy": {
+        "name": "domainJoinLoop",
+        "count": "[length(parameters('vmSetup').vmList)]"
+      },
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "JsonADDomainExtension",
+        "typeHandlerVersion": "1.3",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "Name": "[parameters('domainName').domainName]",
+          "Options": "3",
+          "OUPath": "[parameters('ouPath')]",
+          "Restart": "true",
+          "User": "[concat('internal','\\',parameters('domainAdminUsername'))]"
+        },
+        "protectedsettings": {
+          "Password": "[parameters('domainAdminPassword')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(concat(parameters('vmSetup').vmList[copyIndex()].vmName,'/scriptconfig')]",
+      "apiVersion": "2016-04-30-preview",
+      "location": "[resourceGroup().location]",
+      "copy": {
+        "name": "configAdminsLoop",
+        "count": "[length(parameters('vmSetup').vmList)]"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmSetup').vmList[copyIndex()].vmName,'/extensions','/joindomain')]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.8",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+
+          ],
+          "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted net localgroup administrators ',variables('addUsers'),' /add')]"
+        }
+      }
     }
+
   ],
   "outputs": {}
 }
